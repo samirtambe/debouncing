@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce Example</title>
+    <style>
+        h1, h2,p {
+            font-family: Verdana, serif;
+            font-size: 1.2em;
+        }
+        #nt {
+            border: 1px solid #AAAAAA;
+            border-radius: 4px;
+            padding: 2px 2px 2px 2px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Debounce Example</h2>
+    <p>DIRECTIONS: Try to resize this browser window.</p>
+    <p>PURPOSE: We are trying to trigger an update in number of times the user FINISHES resizing the browser window.  Here we are not interested in having the count increase as the user is dragging the window - which would be the NORMAL behavior.<br>
+    <br>
+    Here the function will be called after there is 650 milliseconds of no resizing the window ONCE RESIZING the window has started.
+
+    </p>
+    <p>The &#35; of times that the window was finished resizing: <span id="nt">0</span></p>
+    <script type="application/javascript">
+        var timeout = false, // holder for timeout id
+            count = 0,
+            delay = 650, // no resizing window at all for this duration - triggers callback
+            snt = document.getElementById('nt');
+
+        // window.resize callback function
+        function someFunc() {
+            count++;
+            snt.innerHTML = count;
+        }
+
+        // window.resize event listener
+        window.addEventListener('resize', function() {
+            // clear the timeout
+          clearTimeout(timeout);
+          // start timing for event "completion"
+          timeout = setTimeout(someFunc, delay);
+        });
+    </script>
+</body>
+</html>
